@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>🚀 Landing Generator</title>
+  <title>🚀 Landing Generator — Full iframe</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -18,8 +18,10 @@
     .container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
     .form-group { margin-bottom: 20px; }
     label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text); }
+    .label-hint { font-size: 12px; color: #999; font-weight: 400; margin-top: 4px; }
     input, textarea { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 12px; font-size: 15px; transition: all 0.3s; }
     input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(228,128,0,0.1); }
+    textarea { resize: vertical; }
     .color-picker { height: 50px; border-radius: 12px; border: 2px solid var(--border); cursor: pointer; }
     .btn-generate { background: var(--accent); color: white; padding: 16px 32px; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.3s; }
     .btn-generate:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(228,128,0,0.4); }
@@ -38,64 +40,79 @@
   <div class="container">
     <!-- ФОРМА -->
     <div>
-      <h1 style="font-size: 28px; margin-bottom: 30px; color: var(--text);">🚀 Landing Generator</h1>
+      <h1 style="font-size: 28px; margin-bottom: 30px; color: var(--text);">🚀 Landing Generator (full iframe)</h1>
+
+      <div class="form-group">
+        <label>🎨 Основной цвет (Accent Color)</label>
+        <div class="label-hint">Все кнопки, выделения и акценты будут этого цвета</div>
+        <input type="color" id="color" class="color-picker" value="#E48000">
+      </div>
       
       <div class="form-group">
         <label>📝 Заголовок (Hero Title)</label>
-        <input type="text" id="title" placeholder="Neurofuel™ — функционално кафе за чист фокус" value="Neurofuel™ — функционално кафе за чист фокус">
+        <div class="label-hint">Главный заголовок на странице. Например: "Neurofuel™ — функционално кафе за чист фокус"</div>
+        <input type="text" id="title" placeholder="Введи основной заголовок продукта">
       </div>
 
       <div class="form-group">
-        <label>📄 Подзаголовок</label>
-        <input type="text" id="subtitle" placeholder="Една чаша. Цял ден продуктивност." value="Една чаша. Цял ден продуктивност.">
+        <label>📄 Подзаголовок (Subtitle)</label>
+        <div class="label-hint">Короткое описание преимущества. Например: "Една чаша. Цял ден продуктивност."</div>
+        <input type="text" id="subtitle" placeholder="Введи подзаголовок">
       </div>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
         <div class="form-group">
           <label>✅ Преимущество 1</label>
-          <input type="text" id="benefit1" value="Чист фокус до 6 часа">
+          <div class="label-hint">Первое ключевое преимущество</div>
+          <input type="text" id="benefit1" placeholder="Например: Быстрый результат">
         </div>
         <div class="form-group">
           <label>✅ Преимущество 2</label>
-          <input type="text" id="benefit2" value="Нулево треперене и нулев crash">
+          <div class="label-hint">Второе ключевое преимущество</div>
+          <input type="text" id="benefit2" placeholder="Например: Без побочных эффектов">
         </div>
       </div>
 
       <div class="form-group">
         <label>✅ Преимущество 3</label>
-        <input type="text" id="benefit3" value="Премиална натурална формула">
-      </div>
-
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-        <div class="form-group">
-          <label>🎨 Основной цвет</label>
-          <input type="color" id="color" class="color-picker" value="#E48000">
-        </div>
-        <div class="form-group">
-          <label>🤖 Demo заголовок</label>
-          <input type="text" id="demoTitle" value="Говори с асистента">
-        </div>
+        <div class="label-hint">Третье ключевое преимущество</div>
+        <input type="text" id="benefit3" placeholder="Например: Натуральный состав">
       </div>
 
       <div class="form-group">
-        <label>🔗 LiveAvatar URL (iframe src)</label>
-        <input type="url" id="iframeUrl" placeholder="https://embed.liveavatar.com/v1/..." value="https://embed.liveavatar.com/v1/f835a8bf-baac-44e3-a950-61868bba4ef6">
+        <label>🤖 Demo заголовок</label>
+        <div class="label-hint">Название блока с Live Avatar</div>
+        <input type="text" id="demoTitle" placeholder="Например: Говори с асистента">
+      </div>
+
+      <div class="form-group">
+        <label>🔗 LiveAvatar iframe (полный код)</label>
+        <div class="label-hint">Вставь сюда ВЕСЬ код iframe из HeyGen / LiveAvatar</div>
+        <textarea id="iframeCode" rows="5" placeholder='<iframe 
+  src="https://labs.heygen.com/v1/..."
+  allow="microphone; camera"
+  style="width:100%; height:600px; border:none;"
+  title="LiveAvatar">
+</iframe>'></textarea>
       </div>
 
       <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
         <div class="form-group">
           <label>🎯 CTA заголовок</label>
-          <input type="text" id="ctaTitle" value="Готов ли си да почувстваш?">
+          <div class="label-hint">Финальный заголовок в конце страницы</div>
+          <input type="text" id="ctaTitle" placeholder="Например: Готов ли си да почувстваш?">
         </div>
         <div class="form-group">
           <label>⚡ CTA кнопка</label>
-          <input type="text" id="ctaButton" value="Започни сега">
+          <div class="label-hint">Текст финальной кнопки</div>
+          <input type="text" id="ctaButton" placeholder="Например: Започни сега">
         </div>
       </div>
 
       <div class="form-group">
         <label>📝 CTA текст</label>
-        <textarea id="ctaText" rows="3" placeholder="Попитай асистента или поръчай сега.">Попитай асистента или поръчай сега.</textarea>
+        <div class="label-hint">Описание в финальной секции</div>
+        <textarea id="ctaText" rows="3" placeholder="Например: Попитай асистента или поръчай сега."></textarea>
       </div>
 
       <button class="btn-generate" onclick="generateLanding()">🎨 ГЕНЕРИРОВАЙ ЛЕНДИНГ</button>
@@ -104,8 +121,8 @@
     <!-- ПРЕВЬЮ + КОД -->
     <div>
       <div class="tabs">
-        <button class="tab-btn active" onclick="showTab('preview')">👁️ Превью</button>
-        <button class="tab-btn" onclick="showTab('code')">💻 HTML Код</button>
+        <button class="tab-btn active" onclick="showTab(event, 'preview')">👁️ Превью</button>
+        <button class="tab-btn" onclick="showTab(event, 'code')">💻 HTML Код</button>
       </div>
 
       <div id="preview" class="tab-content">
@@ -113,11 +130,11 @@
       </div>
 
       <div id="code" class="tab-content" style="display: none;">
-        <div id="codeBlock" class="code-block">Заполни форму и нажми "ГЕНЕРИРОВАЙ ЛЕНДИНГ"</div>
+        <div id="codeBlock" class="code-block">Заполни форму слева и нажми "ГЕНЕРИРОВАЙ ЛЕНДИНГ"</div>
         <br>
         <button class="btn-copy" onclick="copyCode()">📋 Копировать код</button>
         <button class="btn-download" onclick="downloadHTML()">💾 Скачать HTML</button>
-        <div id="successMsg" class="success" style="display: none;">✅ Код скопирован!</div>
+        <div id="successMsg" class="success" style="display: none;">✅ Код скопирован в буфер обмена!</div>
       </div>
     </div>
   </div>
@@ -127,47 +144,153 @@
 
     function generateLanding() {
       const data = {
-        title: document.getElementById('title').value || 'Твой заголовок',
-        subtitle: document.getElementById('subtitle').value || 'Твой подзаголовок',
+        title: document.getElementById('title').value || 'Твой продукт',
+        subtitle: document.getElementById('subtitle').value || 'Описание преимущества',
         benefit1: document.getElementById('benefit1').value || 'Преимущество 1',
         benefit2: document.getElementById('benefit2').value || 'Преимущество 2',
         benefit3: document.getElementById('benefit3').value || 'Преимущество 3',
         color: document.getElementById('color').value || '#E48000',
-        demoTitle: document.getElementById('demoTitle').value || 'Говори с асистента',
-        iframeUrl: document.getElementById('iframeUrl').value || 'https://embed.liveavatar.com/v1/demo',
+        demoTitle: document.getElementById('demoTitle').value || 'Поговори с асистентом',
+        iframeCode: document.getElementById('iframeCode').value || `<iframe 
+  src="https://labs.heygen.com/v1/f20b2ff1-f166-4b9a-96b3-28b6178a849c" 
+  allow="microphone; camera"
+  style="width:100%; height:600px; border:none;"
+  title="LiveAvatar">
+</iframe>`,
         ctaTitle: document.getElementById('ctaTitle').value || 'Готов начать?',
         ctaText: document.getElementById('ctaText').value || 'Нажми кнопку ниже',
         ctaButton: document.getElementById('ctaButton').value || 'Запуск'
       };
 
-      currentHTML = `
-<!DOCTYPE html>
-<html lang="bg">
+      currentHTML = `<!DOCTYPE html>
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
   <title>${data.title}</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root { --accent: ${data.color}; --bg-light: #FFF9F2; --bg-dark: #1F140D; --text-dark: #2D1A12; --text-light: #FFFFFF; --radius-lg: 18px; --shadow: 0 18px 40px rgba(0,0,0,0.18); --font-main: 'Poppins', sans-serif; }
+    :root { 
+      --accent: ${data.color}; 
+      --bg-light: #FFF9F2; 
+      --bg-dark: #1F140D; 
+      --text-dark: #2D1A12; 
+      --text-light: #FFFFFF; 
+      --radius-lg: 18px; 
+      --shadow: 0 18px 40px rgba(0,0,0,0.18); 
+      --font-main: 'Poppins', sans-serif; 
+    }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: var(--font-main); background: var(--bg-light); color: var(--text-dark); line-height: 1.5; }
     .container { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
     section { padding: 60px 0; }
-    .hero h1 { font-size: clamp(28px, 5vw, 38px); font-weight: 700; margin-bottom: 14px; }
-    .hero p.sub { font-size: 16px; opacity: 0.85; margin-bottom: 26px; max-width: 650px; }
-    .hero-benefits { display: grid; gap: 12px; margin-bottom: 32px; }
-    .benefit { display: flex; gap: 10px; font-size: 15px; align-items: center; }
-    .benefit-icon { width: 20px; height: 20px; border-radius: 50%; border: 1px solid ${data.color}44; color: var(--accent); font-size: 12px; background: #FFF3E2; display: flex; align-items: center; justify-content: center; }
-    .btn { padding: 14px 26px; font-size: 15px; font-weight: 600; border-radius: 999px; border: none; cursor: pointer; background: var(--accent); color: #1F140D; box-shadow: 0 14px 34px rgba(228,128,0,0.45); transition: all 0.3s; }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 20px 42px rgba(228,128,0,0.55); }
-    .demo-title { text-align: center; font-size: 22px; font-weight: 600; margin-bottom: 14px; }
-    .iframe-wrapper { background: #000; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); max-width: 900px; margin: 0 auto; }
-    iframe { width: 100%; border: none; aspect-ratio: 16/9; }
-    .cta { background: var(--bg-dark); color: var(--text-light); padding: 80px 0 90px; text-align: center; }
-    .cta-title { font-size: clamp(26px, 4vw, 32px); font-weight: 700; margin-bottom: 16px; }
-    .cta-text { font-size: 15px; opacity: 0.85; margin: 0 auto 36px; max-width: 580px; }
-    @media (max-width: 600px) { section { padding: 42px 0; } }
+    .hero h1 { 
+      font-size: clamp(32px, 6vw, 48px); 
+      font-weight: 700; 
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--accent) 0%, ${data.color}dd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero p.sub { 
+      font-size: 18px; 
+      opacity: 0.8; 
+      margin-bottom: 40px; 
+      max-width: 700px;
+      color: #555;
+    }
+    .hero-benefits { 
+      display: grid; 
+      gap: 16px; 
+      margin-bottom: 40px; 
+      max-width: 700px;
+    }
+    .benefit { 
+      display: flex; 
+      gap: 16px; 
+      font-size: 16px; 
+      align-items: center; 
+      padding: 16px;
+      background: white;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    .benefit-icon { 
+      width: 32px; 
+      height: 32px; 
+      border-radius: 50%; 
+      background: linear-gradient(135deg, var(--accent), ${data.color}dd);
+      color: white; 
+      font-size: 18px; 
+      font-weight: 700;
+      display: flex; 
+      align-items: center; 
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .btn { 
+      display: inline-block;
+      padding: 16px 36px; 
+      font-size: 16px; 
+      font-weight: 600; 
+      border-radius: 12px; 
+      border: none; 
+      cursor: pointer; 
+      background: linear-gradient(135deg, var(--accent), ${data.color}dd);
+      color: white; 
+      box-shadow: 0 12px 32px rgba(228,128,0,0.3); 
+      transition: all 0.3s;
+      text-decoration: none;
+    }
+    .btn:hover { 
+      transform: translateY(-4px); 
+      box-shadow: 0 18px 48px rgba(228,128,0,0.45);
+    }
+    .demo-title { 
+      text-align: center; 
+      font-size: 32px; 
+      font-weight: 700; 
+      margin-bottom: 40px;
+      color: var(--text-dark);
+    }
+    .iframe-wrapper { 
+      background: #000; 
+      border-radius: var(--radius-lg); 
+      overflow: hidden; 
+      box-shadow: var(--shadow); 
+      max-width: 900px; 
+      margin: 0 auto;
+      border: 3px solid var(--accent);
+    }
+    iframe { 
+      width: 100%; 
+      border: none; 
+      aspect-ratio: 16/9; 
+      display: block;
+    }
+    .cta { 
+      background: linear-gradient(135deg, var(--bg-dark) 0%, #1f140d 100%);
+      color: var(--text-light); 
+      padding: 100px 0; 
+      text-align: center;
+    }
+    .cta-title { 
+      font-size: clamp(28px, 5vw, 44px); 
+      font-weight: 700; 
+      margin-bottom: 24px;
+      background: linear-gradient(135deg, white 0%, #ddd 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cta-text { 
+      font-size: 18px; 
+      opacity: 0.9; 
+      margin: 0 auto 48px; 
+      max-width: 650px;
+    }
   </style>
 </head>
 <body>
@@ -176,48 +299,56 @@
       <h1>${data.title}</h1>
       <p class="sub">${data.subtitle}</p>
       <div class="hero-benefits">
-        <div class="benefit"><div class="benefit-icon">✓</div><span>${data.benefit1}</span></div>
-        <div class="benefit"><div class="benefit-icon">✓</div><span>${data.benefit2}</span></div>
-        <div class="benefit"><div class="benefit-icon">✓</div><span>${data.benefit3}</span></div>
+        <div class="benefit">
+          <div class="benefit-icon">✓</div>
+          <span>${data.benefit1}</span>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">✓</div>
+          <span>${data.benefit2}</span>
+        </div>
+        <div class="benefit">
+          <div class="benefit-icon">✓</div>
+          <span>${data.benefit3}</span>
+        </div>
       </div>
-      <button class="btn" onclick="document.querySelector('.demo').scrollIntoView({behavior:'smooth'})">Попитай асистента</button>
+      <a href="#demo" class="btn">Попитай асистента</a>
     </div>
   </section>
-  <section class="demo">
+
+  <section id="demo" class="demo">
     <div class="container">
       <h2 class="demo-title">${data.demoTitle}</h2>
       <div class="iframe-wrapper">
-        <iframe src="${data.iframeUrl}" allow="microphone" title="LiveAvatar"></iframe>
+        ${data.iframeCode}
       </div>
     </div>
   </section>
+
   <section class="cta">
     <div class="container">
       <h2 class="cta-title">${data.ctaTitle}</h2>
       <p class="cta-text">${data.ctaText}</p>
-      <button class="btn" onclick="document.querySelector('.demo').scrollIntoView({behavior:'smooth'})">${data.ctaButton}</button>
+      <a href="#demo" class="btn">${data.ctaButton}</a>
     </div>
   </section>
 </body>
 </html>`;
 
-      // Обновить превью
       const previewFrame = document.getElementById('previewFrame');
       const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
       previewDoc.open();
       previewDoc.write(currentHTML);
       previewDoc.close();
 
-      // Показать код
       document.getElementById('codeBlock').textContent = currentHTML;
-      showTab('preview');
     }
 
-    function showTab(tab) {
+    function showTab(e, tab) {
       document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById(tab).style.display = 'block';
-      event.target.classList.add('active');
+      e.target.classList.add('active');
     }
 
     function copyCode() {
@@ -234,11 +365,12 @@
       const a = document.createElement('a');
       a.href = url;
       a.download = `landing-${Date.now()}.html`;
+      document.body.appendChild(a);
       a.click();
+      document.body.removeChild(a);
       URL.revokeObjectURL(url);
     }
 
-    // Автогенерация при загрузке
     window.onload = () => generateLanding();
   </script>
 </body>
