@@ -1,1 +1,245 @@
-<script>!function(window){const host="https://labs.heygen.com",url=host+"/guest/streaming-embed?share=eyJxdWFsaXR5IjoiaGlnaCIsImF2YXRhck5hbWUiOiI3MDNlMWNiMTc4Mjc0ODgxOTc3MWZmM2Ux%0D%0AYjc1YThhMyIsInByZXZpZXdJbWciOiJodHRwczovL2ZpbGVzMi5oZXlnZW4uYWkvYXZhdGFyL3Yz%0D%0ALzcwM2UxY2IxNzgyNzQ4ODE5NzcxZmYzZTFiNzVhOGEzL2Z1bGwvMi4yL3ByZXZpZXdfdGFyZ2V0%0D%0ALndlYnAiLCJuZWVkUmVtb3ZlQmFja2dyb3VuZCI6ZmFsc2UsImtub3dsZWRnZUJhc2VJZCI6ImRl%0D%0AbW8tMSIsInVzZXJuYW1lIjoiMTkwYWE4NjhiYjYzNGUwMDgwYmZkM2RiOGNlODdmYzAifQ%3D%3D&inIFrame=1",clientWidth=document.body.clientWidth,wrapDiv=document.createElement("div");wrapDiv.id="heygen-streaming-embed";const container=document.createElement("div");container.id="heygen-streaming-container";const stylesheet=document.createElement("style");stylesheet.innerHTML=`\n  #heygen-streaming-embed {\n    z-index: 9999;\n    position: fixed;\n    left: 40px;\n    bottom: 40px;\n    width: 200px;\n    height: 200px;\n    border-radius: 50%;\n    border: 2px solid #fff;\n    box-shadow: 0px 8px 24px 0px rgba(0, 0, 0, 0.12);\n    transition: all linear 0.1s;\n    overflow: hidden;\n\n    opacity: 0;\n    visibility: hidden;\n  }\n  #heygen-streaming-embed.show {\n    opacity: 1;\n    visibility: visible;\n  }\n  #heygen-streaming-embed.expand {\n    ${clientWidth<540?"height: 266px; width: 96%; left: 50%; transform: translateX(-50%);":"height: 366px; width: calc(366px * 16 / 9);"}\n    border: 0;\n    border-radius: 8px;\n  }\n  #heygen-streaming-container {\n    width: 100%;\n    height: 100%;\n  }\n  #heygen-streaming-container iframe {\n    width: 100%;\n    height: 100%;\n    border: 0;\n  }\n  `;const iframe=document.createElement("iframe");iframe.allowFullscreen=!1,iframe.title="Streaming Embed",iframe.role="dialog",iframe.allow="microphone",iframe.src=url;let visible=!1,initial=!1;window.addEventListener("message",(e=>{e.origin===host&&e.data&&e.data.type&&"streaming-embed"===e.data.type&&("init"===e.data.action?(initial=!0,wrapDiv.classList.toggle("show",initial)):"show"===e.data.action?(visible=!0,wrapDiv.classList.toggle("expand",visible)):"hide"===e.data.action&&(visible=!1,wrapDiv.classList.toggle("expand",visible)))})),container.appendChild(iframe),wrapDiv.appendChild(stylesheet),wrapDiv.appendChild(container),document.body.appendChild(wrapDiv)}(globalThis);</script>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>🚀 Landing Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #E48000;
+      --bg: #f8f9fa;
+      --card: #fff;
+      --text: #333;
+      --border: #e9ecef;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); padding: 20px; line-height: 1.6; }
+    .container { max-width: 1400px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 8px; font-weight: 600; color: var(--text); }
+    input, textarea { width: 100%; padding: 12px 16px; border: 2px solid var(--border); border-radius: 12px; font-size: 15px; transition: all 0.3s; }
+    input:focus, textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px rgba(228,128,0,0.1); }
+    .color-picker { height: 50px; border-radius: 12px; border: 2px solid var(--border); cursor: pointer; }
+    .btn-generate { background: var(--accent); color: white; padding: 16px 32px; border: none; border-radius: 12px; font-size: 16px; font-weight: 700; cursor: pointer; width: 100%; transition: all 0.3s; }
+    .btn-generate:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(228,128,0,0.4); }
+    .tabs { display: flex; background: var(--card); border-radius: 12px 12px 0 0; overflow: hidden; margin-bottom: 0; }
+    .tab-btn { flex: 1; padding: 16px; background: none; border: none; font-size: 15px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+    .tab-btn.active { background: var(--accent); color: white; }
+    .tab-content { background: var(--card); border-radius: 0 0 12px 12px; padding: 30px; min-height: 600px; border: 1px solid var(--border); }
+    .preview-iframe { width: 100%; height: 700px; border: none; border-radius: 12px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+    .code-block { background: #1e1e1e; color: #f8f8f2; padding: 20px; border-radius: 12px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; white-space: pre-wrap; max-height: 600px; overflow: auto; }
+    .btn-copy, .btn-download { background: #28a745; color: white; padding: 12px 24px; border: none; border-radius: 8px; cursor: pointer; margin-right: 10px; font-weight: 600; }
+    .success { background: #d4edda; color: #155724; padding: 12px; border-radius: 8px; margin-bottom: 20px; }
+    @media (max-width: 768px) { .container { grid-template-columns: 1fr; gap: 20px; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- ФОРМА -->
+    <div>
+      <h1 style="font-size: 28px; margin-bottom: 30px; color: var(--text);">🚀 Landing Generator</h1>
+      
+      <div class="form-group">
+        <label>📝 Заголовок (Hero Title)</label>
+        <input type="text" id="title" placeholder="Neurofuel™ — функционално кафе за чист фокус" value="Neurofuel™ — функционално кафе за чист фокус">
+      </div>
+
+      <div class="form-group">
+        <label>📄 Подзаголовок</label>
+        <input type="text" id="subtitle" placeholder="Една чаша. Цял ден продуктивност." value="Една чаша. Цял ден продуктивност.">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div class="form-group">
+          <label>✅ Преимущество 1</label>
+          <input type="text" id="benefit1" value="Чист фокус до 6 часа">
+        </div>
+        <div class="form-group">
+          <label>✅ Преимущество 2</label>
+          <input type="text" id="benefit2" value="Нулево треперене и нулев crash">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>✅ Преимущество 3</label>
+        <input type="text" id="benefit3" value="Премиална натурална формула">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div class="form-group">
+          <label>🎨 Основной цвет</label>
+          <input type="color" id="color" class="color-picker" value="#E48000">
+        </div>
+        <div class="form-group">
+          <label>🤖 Demo заголовок</label>
+          <input type="text" id="demoTitle" value="Говори с асистента">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>🔗 LiveAvatar URL (iframe src)</label>
+        <input type="url" id="iframeUrl" placeholder="https://embed.liveavatar.com/v1/..." value="https://embed.liveavatar.com/v1/f835a8bf-baac-44e3-a950-61868bba4ef6">
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+        <div class="form-group">
+          <label>🎯 CTA заголовок</label>
+          <input type="text" id="ctaTitle" value="Готов ли си да почувстваш?">
+        </div>
+        <div class="form-group">
+          <label>⚡ CTA кнопка</label>
+          <input type="text" id="ctaButton" value="Започни сега">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>📝 CTA текст</label>
+        <textarea id="ctaText" rows="3" placeholder="Попитай асистента или поръчай сега.">Попитай асистента или поръчай сега.</textarea>
+      </div>
+
+      <button class="btn-generate" onclick="generateLanding()">🎨 ГЕНЕРИРОВАЙ ЛЕНДИНГ</button>
+    </div>
+
+    <!-- ПРЕВЬЮ + КОД -->
+    <div>
+      <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('preview')">👁️ Превью</button>
+        <button class="tab-btn" onclick="showTab('code')">💻 HTML Код</button>
+      </div>
+
+      <div id="preview" class="tab-content">
+        <iframe id="previewFrame" class="preview-iframe" src="about:blank"></iframe>
+      </div>
+
+      <div id="code" class="tab-content" style="display: none;">
+        <div id="codeBlock" class="code-block">Заполни форму и нажми "ГЕНЕРИРОВАЙ ЛЕНДИНГ"</div>
+        <br>
+        <button class="btn-copy" onclick="copyCode()">📋 Копировать код</button>
+        <button class="btn-download" onclick="downloadHTML()">💾 Скачать HTML</button>
+        <div id="successMsg" class="success" style="display: none;">✅ Код скопирован!</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let currentHTML = '';
+
+    function generateLanding() {
+      const data = {
+        title: document.getElementById('title').value || 'Твой заголовок',
+        subtitle: document.getElementById('subtitle').value || 'Твой подзаголовок',
+        benefit1: document.getElementById('benefit1').value || 'Преимущество 1',
+        benefit2: document.getElementById('benefit2').value || 'Преимущество 2',
+        benefit3: document.getElementById('benefit3').value || 'Преимущество 3',
+        color: document.getElementById('color').value || '#E48000',
+        demoTitle: document.getElementById('demoTitle').value || 'Говори с асистента',
+        iframeUrl: document.getElementById('iframeUrl').value || 'https://embed.liveavatar.com/v1/demo',
+        ctaTitle: document.getElementById('ctaTitle').value || 'Готов начать?',
+        ctaText: document.getElementById('ctaText').value || 'Нажми кнопку ниже',
+        ctaButton: document.getElementById('ctaButton').value || 'Запуск'
+      };
+
+      currentHTML = `
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <title>${data.title}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --accent: ${data.color}; --bg-light: #FFF9F2; --bg-dark: #1F140D; --text-dark: #2D1A12; --text-light: #FFFFFF; --radius-lg: 18px; --shadow: 0 18px 40px rgba(0,0,0,0.18); --font-main: 'Poppins', sans-serif; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: var(--font-main); background: var(--bg-light); color: var(--text-dark); line-height: 1.5; }
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 22px; }
+    section { padding: 60px 0; }
+    .hero h1 { font-size: clamp(28px, 5vw, 38px); font-weight: 700; margin-bottom: 14px; }
+    .hero p.sub { font-size: 16px; opacity: 0.85; margin-bottom: 26px; max-width: 650px; }
+    .hero-benefits { display: grid; gap: 12px; margin-bottom: 32px; }
+    .benefit { display: flex; gap: 10px; font-size: 15px; align-items: center; }
+    .benefit-icon { width: 20px; height: 20px; border-radius: 50%; border: 1px solid ${data.color}44; color: var(--accent); font-size: 12px; background: #FFF3E2; display: flex; align-items: center; justify-content: center; }
+    .btn { padding: 14px 26px; font-size: 15px; font-weight: 600; border-radius: 999px; border: none; cursor: pointer; background: var(--accent); color: #1F140D; box-shadow: 0 14px 34px rgba(228,128,0,0.45); transition: all 0.3s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 20px 42px rgba(228,128,0,0.55); }
+    .demo-title { text-align: center; font-size: 22px; font-weight: 600; margin-bottom: 14px; }
+    .iframe-wrapper { background: #000; border-radius: var(--radius-lg); overflow: hidden; box-shadow: var(--shadow); max-width: 900px; margin: 0 auto; }
+    iframe { width: 100%; border: none; aspect-ratio: 16/9; }
+    .cta { background: var(--bg-dark); color: var(--text-light); padding: 80px 0 90px; text-align: center; }
+    .cta-title { font-size: clamp(26px, 4vw, 32px); font-weight: 700; margin-bottom: 16px; }
+    .cta-text { font-size: 15px; opacity: 0.85; margin: 0 auto 36px; max-width: 580px; }
+    @media (max-width: 600px) { section { padding: 42px 0; } }
+  </style>
+</head>
+<body>
+  <section class="hero">
+    <div class="container">
+      <h1>${data.title}</h1>
+      <p class="sub">${data.subtitle}</p>
+      <div class="hero-benefits">
+        <div class="benefit"><div class="benefit-icon">✓</div><span>${data.benefit1}</span></div>
+        <div class="benefit"><div class="benefit-icon">✓</div><span>${data.benefit2}</span></div>
+        <div class="benefit"><div class="benefit-icon">✓</div><span>${data.benefit3}</span></div>
+      </div>
+      <button class="btn" onclick="document.querySelector('.demo').scrollIntoView({behavior:'smooth'})">Попитай асистента</button>
+    </div>
+  </section>
+  <section class="demo">
+    <div class="container">
+      <h2 class="demo-title">${data.demoTitle}</h2>
+      <div class="iframe-wrapper">
+        <iframe src="${data.iframeUrl}" allow="microphone" title="LiveAvatar"></iframe>
+      </div>
+    </div>
+  </section>
+  <section class="cta">
+    <div class="container">
+      <h2 class="cta-title">${data.ctaTitle}</h2>
+      <p class="cta-text">${data.ctaText}</p>
+      <button class="btn" onclick="document.querySelector('.demo').scrollIntoView({behavior:'smooth'})">${data.ctaButton}</button>
+    </div>
+  </section>
+</body>
+</html>`;
+
+      // Обновить превью
+      const previewFrame = document.getElementById('previewFrame');
+      const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
+      previewDoc.open();
+      previewDoc.write(currentHTML);
+      previewDoc.close();
+
+      // Показать код
+      document.getElementById('codeBlock').textContent = currentHTML;
+      showTab('preview');
+    }
+
+    function showTab(tab) {
+      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
+      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tab).style.display = 'block';
+      event.target.classList.add('active');
+    }
+
+    function copyCode() {
+      navigator.clipboard.writeText(currentHTML).then(() => {
+        const msg = document.getElementById('successMsg');
+        msg.style.display = 'block';
+        setTimeout(() => msg.style.display = 'none', 2000);
+      });
+    }
+
+    function downloadHTML() {
+      const blob = new Blob([currentHTML], { type: 'text/html' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `landing-${Date.now()}.html`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Автогенерация при загрузке
+    window.onload = () => generateLanding();
+  </script>
+</body>
+</html>
