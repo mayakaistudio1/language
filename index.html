@@ -2,568 +2,385 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>🚀 Landing Generator — Style aware</title>
+  <title>🚀 Premium Landing Generator v3.2</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&family=Montserrat:wght@400;700&family=Manrope:wght@400;800&family=Poppins:wght@400;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
   <style>
     :root {
       --accent: #E48000;
-      --bg: #0f1015;
-      --card: #11131d;
-      --muted: #8a8fa6;
-      --border: #1e2331;
+      --bg: #08090d;
+      --card: rgba(255, 255, 255, 0.03);
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f2f4ff;
+      --text-muted: #8a8fa6;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at 20% 20%, #1b1f2f, #0f1015 50%), radial-gradient(circle at 80% 0%, #191b2b, transparent 40%), #0f1015;
-      color: #f2f4ff;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(228, 128, 0, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 90% 80%, rgba(228, 128, 0, 0.05) 0%, transparent 40%);
+      color: var(--text);
       min-height: 100vh;
-      padding: 32px;
+      padding: 40px 20px;
       line-height: 1.6;
     }
 
-    h1 { margin-bottom: 10px; font-size: 30px; }
-    p.lead { color: #c6c9de; margin-bottom: 22px; }
-
     .container {
-      max-width: 1500px;
+      max-width: 1600px;
       margin: 0 auto;
       display: grid;
-      grid-template-columns: 460px 1fr;
-      gap: 24px;
+      grid-template-columns: 480px 1fr;
+      gap: 32px;
     }
 
     .panel {
-      background: rgba(255,255,255,0.02);
-      border: 1px solid #20263a;
-      border-radius: 16px;
-      padding: 22px;
-      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
-      backdrop-filter: blur(8px);
+      background: rgba(15, 17, 26, 0.7);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 30px;
+      backdrop-filter: blur(20px);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
+      height: fit-content;
+      position: sticky;
+      top: 40px;
+      overflow-y: auto;
+      max-height: 90vh;
     }
 
-    .form-group { margin-bottom: 18px; }
-    label { display: block; font-weight: 600; margin-bottom: 8px; }
-    .label-hint { color: #949bb9; font-size: 12px; margin-bottom: 6px; }
+    h1 { font-size: 24px; margin-bottom: 8px; letter-spacing: -0.5px; }
+    .lead { color: var(--text-muted); margin-bottom: 24px; font-size: 14px; }
+
+    .form-group { margin-bottom: 20px; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
     input, textarea, select {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 12px;
-      border: 1px solid #20263a;
-      background: rgba(255,255,255,0.03);
-      color: #e9ecff;
-      font-size: 14px;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--border);
+      background: rgba(0, 0, 0, 0.2); color: #fff; font-size: 14px;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    input:focus, textarea:focus, select:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(228,128,0,0.2);
-    }
-    textarea { resize: vertical; }
-
-    .color-picker {
-      height: 52px;
-      padding: 0;
-      cursor: pointer;
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--accent); outline: none;
+      box-shadow: 0 0 0 4px rgba(228,128,0,0.1);
     }
 
     .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
 
     .btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      padding: 14px 18px;
-      border-radius: 12px;
-      border: none;
-      background: linear-gradient(135deg, var(--accent), #f6a136);
-      color: #0f1015;
-      font-weight: 700;
-      cursor: pointer;
-      width: 100%;
-      transition: transform 0.15s ease, box-shadow 0.2s ease;
-      box-shadow: 0 12px 30px rgba(228,128,0,0.35);
+      padding: 16px; border-radius: 14px; border: none; background: var(--accent);
+      color: #000; font-weight: 800; cursor: pointer; width: 100%;
+      transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
     }
-    .btn:hover { transform: translateY(-2px); box-shadow: 0 18px 40px rgba(228,128,0,0.45); }
+    .btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 10px 30px rgba(228,128,0,0.3); }
+    .btn-secondary { background: #1a1d2e; color: #fff; }
 
-    .tabs { display: flex; margin-bottom: -1px; }
+    .color-preset { display: flex; gap: 8px; flex-wrap: wrap; }
+    .preset-btn {
+      width: 48px; height: 48px; border-radius: 12px; border: none; cursor: pointer;
+      position: relative; overflow: hidden;
+    }
+    .preset-btn.active::after {
+      content: '✓'; position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%); color: #000; font-weight: bold; font-size: 16px;
+    }
+
+    .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
     .tab-btn {
-      flex: 1;
-      padding: 14px;
-      border: 1px solid #20263a;
-      background: #0d0f17;
-      color: #cfd4ff;
-      border-bottom: none;
-      cursor: pointer;
-      font-weight: 600;
-      border-radius: 12px 12px 0 0;
+      background: transparent; border: 1px solid var(--border); color: var(--text-muted);
+      padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600;
     }
-    .tab-btn.active { background: linear-gradient(135deg, #171b2a, #0f1015); color: #fff; border-color: #2a3148; }
+    .tab-btn.active { background: var(--border); color: #fff; }
 
-    .tab-content {
-      border: 1px solid #20263a;
-      border-radius: 0 12px 12px 12px;
-      background: #0d0f17;
-      padding: 0;
-      min-height: 760px;
+    .preview-container {
+      background: #000; border-radius: 24px; border: 1px solid var(--border);
+      overflow: hidden; box-shadow: 0 50px 120px rgba(0,0,0,0.6); height: 90vh;
+      position: relative;
+    }
+    iframe { width: 100%; height: 100%; border: none; }
+    .code-block {
+      padding: 20px; font-family: 'Roboto Mono', monospace; font-size: 12px;
+      color: #b0b5cc; white-space: pre-wrap; height: 100%; overflow: auto;
+      background: #050608;
     }
 
-    .preview-iframe { width: 100%; height: 850px; border: none; border-radius: 0 0 12px 12px; }
-    .code-block { background: #0a0c12; color: #e9ecff; padding: 18px; border-radius: 0 0 12px 12px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; white-space: pre-wrap; max-height: 850px; overflow: auto; }
+    .status {
+      position: absolute; bottom: 10px; right: 10px;
+      background: rgba(0,0,0,0.7); color: #0f0; padding: 8px 12px;
+      border-radius: 20px; font-size: 12px; font-family: 'Roboto Mono', monospace;
+    }
 
-    .helper { padding: 12px 14px; border: 1px solid #20263a; border-radius: 12px; background: rgba(255,255,255,0.03); color: #c5c9e5; font-size: 13px; }
-    .swatch { height: 42px; border-radius: 12px; border: 1px solid #20263a; position: relative; }
-    .swatch span { position: absolute; bottom: 6px; right: 10px; font-size: 11px; color: #0f1015; background: rgba(255,255,255,0.8); padding: 3px 6px; border-radius: 8px; }
-    .badge { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 6px 10px; border-radius: 10px; background: rgba(228,128,0,0.14); color: #f5b15f; border: 1px solid rgba(228,128,0,0.25); margin-bottom: 12px; }
-    .status { font-size: 13px; color: #bfc4e0; margin-top: 6px; min-height: 18px; }
-
-    .actions { display: flex; gap: 10px; margin-top: 14px; }
-    .btn-secondary { background: #151929; color: #e9ecff; box-shadow: none; border: 1px solid #20263a; }
-    .btn-secondary:hover { transform: none; box-shadow: 0 12px 32px rgba(0,0,0,0.35); }
-
-    @media (max-width: 1080px) { .container { grid-template-columns: 1fr; } }
+    @media (max-width: 1100px) {
+      .container { grid-template-columns: 1fr; }
+      .panel { position: static; max-height: none; }
+    }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="panel">
-      <h1>🚀 Продвинутый конструктор лендингов</h1>
-      <p class="lead">Создай полный дублируемый лендинг и подбери стиль по референсам сайтов.</p>
 
-      <div class="badge">🎨 Инструмент подбора стиля + полный HTML</div>
+<div class="container">
+  <div class="panel">
+    <h1>✨ Premium Generator v3.2</h1>
+    <p class="lead">✅ ИСПРАВЛЕН черный экран + улучшенный эдитор</p>
 
-      <div class="form-group">
-        <label>🎨 Основной цвет (Accent Color)</label>
-        <div class="label-hint">Кнопки, выделения, фоны</div>
-        <input type="color" id="color" class="color-picker" value="#E48000">
+    <!-- Цветовая схема -->
+    <div class="form-group">
+      <label>Цветовая схема</label>
+      <div class="color-preset">
+        <button class="preset-btn active" style="background:#E48000" onclick="selectPreset('orange')"></button>
+        <button class="preset-btn" style="background:#FF6B35" onclick="selectPreset('coral')"></button>
+        <button class="preset-btn" style="background:#00D4AA" onclick="selectPreset('teal')"></button>
+        <button class="preset-btn" style="background:#A855F7" onclick="selectPreset('purple')"></button>
+        <button class="preset-btn" style="background:#3B82F6" onclick="selectPreset('blue')"></button>
       </div>
-
-      <div class="form-group">
-        <label>🌐 Сайты-референсы для подбора стиля</label>
-        <div class="label-hint">Вставь URL сайтов, стиль которых нужно повторить. Мы вытащим основные цвета.</div>
-        <div class="grid-3">
-          <input type="url" id="ref1" placeholder="https://example.com">
-          <input type="url" id="ref2" placeholder="https://another.com">
-          <input type="url" id="ref3" placeholder="https://third.com">
-        </div>
-        <div class="actions">
-          <button class="btn" style="width: auto; padding: 10px 14px;" onclick="pickStyleFromSites()">🔍 Подобрать стиль</button>
-          <button class="btn btn-secondary" style="width: auto; padding: 10px 14px;" onclick="randomizeStyle()">✨ Случайный стиль</button>
-        </div>
-        <div class="grid-3" style="margin-top: 8px;">
-          <div class="swatch" id="swatchAccent"><span>Accent</span></div>
-          <div class="swatch" id="swatchBg"><span>BG</span></div>
-          <div class="swatch" id="swatchCard"><span>Card</span></div>
-        </div>
-        <div class="status" id="styleStatus"></div>
+      <div class="grid-2" style="margin-top: 12px;">
+        <input type="color" id="accent" value="#E48000" onchange="generateLanding()">
+        <input type="color" id="bgColor" value="#08090d" onchange="generateLanding()">
       </div>
-
-      <div class="form-group">
-        <label>📝 Заголовок (Hero Title)</label>
-        <input type="text" id="title" placeholder="Neurofuel™ — функционално кафе для фокуса">
-      </div>
-
-      <div class="form-group">
-        <label>📄 Подзаголовок</label>
-        <textarea id="subtitle" rows="2" placeholder="Короткое описание выгоды"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>✅ Преимущества (по одному в строке)</label>
-        <textarea id="benefits" rows="3" placeholder="Быстрый результат\nБез побочек\nНатуральный вкус"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>🏗️ Фичи/модули (по одному в строке)</label>
-        <textarea id="features" rows="3" placeholder="AI-консультант 24/7\nИнтерактивная демонстрация\nГотовые сценарии продаж"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>💬 Отзывы (формат: Имя — текст)</label>
-        <textarea id="testimonials" rows="3" placeholder="Анна — Результат почувствовала через 10 минут.\nИван — Наконец-то фокус без тревоги."></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>❓ FAQ (формат: Вопрос | Ответ)</label>
-        <textarea id="faqs" rows="3" placeholder="Как работает? | Формула поддерживает нейро-медиаторы.\nКогда увижу эффект? | Уже через 15 минут после приема."></textarea>
-      </div>
-
-      <div class="grid-2">
-        <div class="form-group">
-          <label>🤖 Demo заголовок</label>
-          <input type="text" id="demoTitle" placeholder="Поговори с ассистентом">
-        </div>
-        <div class="form-group">
-          <label>⚡ CTA кнопка</label>
-          <input type="text" id="ctaButton" placeholder="Попробовать сейчас">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>🔗 LiveAvatar iframe (полный код)</label>
-        <textarea id="iframeCode" rows="5" placeholder='<iframe src="https://labs.heygen.com/v1/..." allow="microphone; camera" style="width:100%; height:600px; border:none;" title="LiveAvatar"></iframe>'></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>💰 Прайс/пакет</label>
-        <div class="label-hint">Название плана, цена и буллеты через новую строку</div>
-        <textarea id="pricing" rows="3" placeholder="Pro Growth\n$49 / мес\nВсе функции\nПоддержка 24/7\n2 недели триал"></textarea>
-      </div>
-
-      <div class="form-group">
-        <label>🎯 Финальный CTA заголовок</label>
-        <input type="text" id="ctaTitle" placeholder="Готов начать?">
-      </div>
-
-      <div class="form-group">
-        <label>📝 CTA текст</label>
-        <textarea id="ctaText" rows="2" placeholder="Попробуй демо или сразу оформи подписку."></textarea>
-      </div>
-
-      <button class="btn" onclick="generateLanding()">🎨 Сгенерировать лендинг</button>
     </div>
 
-    <div>
-      <div class="tabs">
-        <button class="tab-btn active" onclick="showTab(event, 'preview')">👁️ Превью</button>
-        <button class="tab-btn" onclick="showTab(event, 'code')">💻 HTML код</button>
-      </div>
+    <!-- Контент -->
+    <div class="form-group">
+      <label>Шрифт</label>
+      <select id="fontPair" onchange="generateLanding()">
+        <option value="'Inter', sans-serif">Inter (Modern)</option>
+        <option value="'Playfair Display', serif">Playfair (Luxury)</option>
+        <option value="'Manrope', sans-serif">Manrope (Tech)</option>
+        <option value="'Montserrat', sans-serif" selected>Montserrat</option>
+        <option value="'Poppins', sans-serif">Poppins</option>
+      </select>
+    </div>
 
-      <div id="preview" class="tab-content">
-        <iframe id="previewFrame" class="preview-iframe" src="about:blank"></iframe>
+    <div class="grid-2">
+      <div class="form-group">
+        <label>Hero Заголовок</label>
+        <input type="text" id="title" value="Будущее вашего бренда начинается здесь">
       </div>
+      <div class="form-group">
+        <label>Hero CTA</label>
+        <input type="text" id="ctaButton" value="Начать проект">
+      </div>
+    </div>
 
-      <div id="code" class="tab-content" style="display: none;">
-        <div id="codeBlock" class="code-block">Заполни форму и нажми «Сгенерировать лендинг».</div>
-        <div style="padding: 14px; border-top: 1px solid #20263a; display: flex; gap: 10px;">
-          <button class="btn" style="width: auto; padding: 10px 16px;" onclick="copyCode()">📋 Копировать</button>
-          <button class="btn btn-secondary" style="width: auto; padding: 10px 16px;" onclick="downloadHTML()">💾 Скачать HTML</button>
-          <div id="successMsg" class="status" style="color: #7ee0a3;"></div>
-        </div>
-      </div>
+    <div class="form-group">
+      <label>Подзаголовок</label>
+      <textarea id="subtitle" rows="2">Мы создаем цифровые решения, которые выделяются на фоне конкурентов.</textarea>
+    </div>
 
-      <div class="helper" style="margin-top: 12px;">
-        <strong>Как работает инструмент подбора стиля?</strong><br>
-        Мы парсим цвета из кода указанных сайтов (hex-коды). Часто сайты без CORS могут скрывать HTML — тогда попробуй другой URL или используй кнопку «Случайный стиль».
+    <div class="form-group">
+      <label>Преимущества (по строке)</label>
+      <textarea id="benefits" rows="3">Мгновенная загрузка
+Премиальный дизайн
+Полная поддержка</textarea>
+    </div>
+
+    <div class="form-group">
+      <label>Отзывы (по строке)</label>
+      <textarea id="testimonials" rows="2">"Лучший сервис!" - Иван П.
+"Премиум качество" - Мария К.</textarea>
+    </div>
+
+    <div class="form-group">
+      <label>HeyGen iframe</label>
+      <textarea id="iframeCode" rows="2" placeholder="Полный &lt;iframe&gt; код"></textarea>
+    </div>
+
+    <div class="grid-2">
+      <div class="form-group">
+        <label>Форма - Заголовок</label>
+        <input type="text" id="formTitle" value="Оставьте заявку">
       </div>
+      <div class="form-group">
+        <label>Форма - CTA</label>
+        <input type="text" id="formCta" value="Получить консультацию">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>WhatsApp (+код страны)</label>
+      <input type="text" id="whatsapp" value="1234567890" placeholder="79123456789">
+    </div>
+
+    <button class="btn" onclick="generateLanding()">🔥 ГЕНЕРИРОВАТЬ</button>
+
+    <div style="margin-top: 20px;" class="grid-2">
+      <button class="btn btn-secondary" onclick="copyCode()">📋 Копировать</button>
+      <button class="btn btn-secondary" onclick="downloadHTML()">💾 Скачать</button>
     </div>
   </div>
 
-  <script>
-    let currentHTML = '';
+  <div class="right-col">
+    <div class="tabs">
+      <button class="tab-btn active" onclick="switchTab('preview')">👁️ Превью</button>
+      <button class="tab-btn" onclick="switchTab('code')">💻 Код</button>
+    </div>
 
-    function normalizeColor(hex) {
-      if (!hex) return null;
-      if (hex.length === 4) {
-        return '#' + hex[1] + hex[1] + hex[2] + hex[2] + hex[3] + hex[3];
-      }
-      return hex.substring(0, 7).toLowerCase();
-    }
+    <div class="preview-container">
+      <div id="previewWrap">
+        <iframe id="previewFrame"></iframe>
+        <div class="status" id="status">Готов к генерации...</div>
+      </div>
+      <div id="codeWrap" style="display:none">
+        <div id="codeBlock" class="code-block"></div>
+      </div>
+    </div>
+  </div>
+</div>
 
-    function hexToRgb(hex) {
-      const n = parseInt(hex.slice(1), 16);
-      return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
-    }
+<script>
+  let currentHTML = '';
+  let activePreset = 'orange';
 
-    function getLightness(hex) {
-      const { r, g, b } = hexToRgb(hex);
-      return (Math.max(r, g, b) + Math.min(r, g, b)) / 510;
-    }
+  const presets = {
+    orange: { accent: '#E48000', accent2: '#FF9500', bg: '#08090d' },
+    coral: { accent: '#FF6B35', accent2: '#FF8E53', bg: '#0f0f23' },
+    teal: { accent: '#00D4AA', accent2: '#14F2D0', bg: '#0a1a18' },
+    purple: { accent: '#A855F7', accent2: '#C084FC', bg: '#120a1a' },
+    blue: { accent: '#3B82F6', accent2: '#60A5FA', bg: '#0a182a' }
+  };
 
-    function adjust(hex, amount) {
-      const { r, g, b } = hexToRgb(hex);
-      const clamp = (v) => Math.min(255, Math.max(0, v));
-      const nr = clamp(r + amount);
-      const ng = clamp(g + amount);
-      const nb = clamp(b + amount);
-      const out = (nr << 16) | (ng << 8) | nb;
-      return '#' + out.toString(16).padStart(6, '0');
-    }
+  function selectPreset(name) {
+    activePreset = name;
+    const colors = presets[name];
+    document.getElementById('accent').value = colors.accent;
+    document.getElementById('bgColor').value = colors.bg;
+    document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    generateLanding();
+  }
 
-    function updateSwatches(accent, bg, card) {
-      document.getElementById('swatchAccent').style.background = accent;
-      document.getElementById('swatchBg').style.background = bg;
-      document.getElementById('swatchCard').style.background = card;
-    }
+  function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('previewWrap').style.display = tab === 'preview' ? 'block' : 'none';
+    document.getElementById('codeWrap').style.display = tab === 'code' ? 'block' : 'none';
+  }
 
-    async function pickStyleFromSites() {
-      const urls = [ref1.value, ref2.value, ref3.value].map(u => u.trim()).filter(Boolean);
-      const status = document.getElementById('styleStatus');
-      if (!urls.length) {
-        status.textContent = 'Добавь хотя бы один URL.';
-        return;
-      }
-      status.textContent = 'Сканируем цвета…';
-      const allColors = [];
+  function generateLanding() {
+    try {
+      document.getElementById('status').textContent = 'Генерирую...';
 
-      for (const url of urls) {
-        try {
-          const res = await fetch(url);
-          const html = await res.text();
-          const matches = html.match(/#(?:[0-9a-fA-F]{3}){1,2}/g) || [];
-          matches.forEach(m => allColors.push(normalizeColor(m)));
-        } catch (e) {
-          console.warn('Не удалось считать', url, e);
-        }
-      }
+      const accent = document.getElementById('accent').value;
+      const bgColor = document.getElementById('bgColor').value;
+      const font = document.getElementById('fontPair').value;
+      const title = document.getElementById('title').value || 'Заголовок';
+      const subtitle = document.getElementById('subtitle').value || 'Подзаголовок';
+      const cta = document.getElementById('ctaButton').value || 'CTA';
+      const iframeCode = document.getElementById('iframeCode').value ||
+        '<div style="background:linear-gradient(135deg,#111,#1a1d2e);height:520px;border-radius:28px;display:grid;place-items:center;font-size:24px;color:#aaa;">🚀 Место для HeyGen</div>';
+      const benefits = document.getElementById('benefits').value.split('\n').filter(b => b.trim());
+      const testimonials = document.getElementById('testimonials').value.split('\n').filter(t => t.trim());
+      const formTitle = document.getElementById('formTitle').value || 'Заявка';
+      const formCta = document.getElementById('formCta').value || 'Отправить';
+      const whatsapp = document.getElementById('whatsapp').value || '1234567890';
 
-      const filtered = allColors.filter(Boolean);
-      if (!filtered.length) {
-        status.textContent = 'Не удалось извлечь цвета. Попробуй другой сайт или вручную выбери цвет.';
-        return;
-      }
+      const benefitsHTML = benefits.map(b =>
+        `<div class="b-card"><div class="b-dot"></div><p>${b}</p></div>`
+      ).join('');
 
-      const freq = {};
-      filtered.forEach(c => freq[c] = (freq[c] || 0) + 1);
-      const sorted = Object.entries(freq).sort((a, b) => b[1] - a[1]);
-      const accent = sorted[0][0];
-      const lightCandidates = Object.keys(freq).sort((a, b) => getLightness(b) - getLightness(a));
-      const bg = lightCandidates[0] || '#0f1015';
-      const card = adjust(bg, -20);
+      const testimonialsHTML = testimonials.map(t =>
+        `<p>"${t}"</p>`
+      ).join('');
 
-      document.getElementById('color').value = accent;
-      updateSwatches(accent, bg, card);
-      status.textContent = `Найдено ${filtered.length} цветов. Главный акцент: ${accent}`;
-    }
-
-    function randomizeStyle() {
-      const randomColor = '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
-      const bg = adjust(randomColor, -80);
-      const card = adjust(bg, 20);
-      document.getElementById('color').value = randomColor;
-      updateSwatches(randomColor, bg, card);
-      document.getElementById('styleStatus').textContent = 'Случайный стиль применён.';
-    }
-
-    function parseLines(id, fallback) {
-      const raw = document.getElementById(id).value.trim();
-      if (!raw) return fallback;
-      return raw.split(/\n+/).map(l => l.trim()).filter(Boolean);
-    }
-
-    function parseFaqs() {
-      const lines = parseLines('faqs', [
-        'Как это работает? | Мы активируем фокус и спокойствие за 15 минут.',
-        'Есть гарантия? | 14 дней теста без риска.'
-      ]);
-      return lines.map(l => {
-        const [q, a] = l.split('|');
-        return { q: (q || '').trim(), a: (a || '').trim() };
-      });
-    }
-
-    function parseTestimonials() {
-      const lines = parseLines('testimonials', [
-        'Анна — Почувствовала результат за 10 минут.',
-        'Иван — Наконец-то фокус без тревоги.'
-      ]);
-      return lines.map(l => {
-        const parts = l.split('—');
-        return { name: (parts[0] || 'Клиент').trim(), text: (parts.slice(1).join('—') || 'Отзыв клиента').trim() };
-      });
-    }
-
-    function parsePricing() {
-      const lines = parseLines('pricing', ['Pro', '$49 / мес', 'Все функции', 'Поддержка 24/7']);
-      return {
-        title: lines[0] || 'Pro',
-        price: lines[1] || '$49 / мес',
-        bullets: lines.slice(2)
-      };
-    }
-
-    function generateLanding() {
-      const accent = document.getElementById('color').value || '#E48000';
-      const benefits = parseLines('benefits', ['Быстрый результат', 'Без побочных эффектов', 'Натуральный состав']);
-      const features = parseLines('features', ['AI-консультант 24/7', 'Интерактивная демонстрация', 'Сценарии продаж']);
-      const testimonials = parseTestimonials();
-      const faqs = parseFaqs();
-      const pricing = parsePricing();
-
-      const data = {
-        title: document.getElementById('title').value || 'Твой продукт',
-        subtitle: document.getElementById('subtitle').value || 'Описание преимущества',
-        color: accent,
-        demoTitle: document.getElementById('demoTitle').value || 'Поговори с ассистентом',
-        iframeCode: document.getElementById('iframeCode').value || `<iframe src="https://labs.heygen.com/v1/f20b2ff1-f166-4b9a-96b3-28b6178a849c" allow="microphone; camera" style="width:100%; height:620px; border:none;" title="LiveAvatar"></iframe>`,
-        ctaTitle: document.getElementById('ctaTitle').value || 'Готов начать?',
-        ctaText: document.getElementById('ctaText').value || 'Нажми кнопку ниже',
-        ctaButton: document.getElementById('ctaButton').value || 'Запуск'
-      };
-
-      const benefitHTML = benefits.map((b, idx) => `<div class="benefit"><div class="icon">${idx + 1}</div><div>${b}</div></div>`).join('');
-      const featuresHTML = features.map((f, idx) => `<div class="feature-card"><div class="mini">Модуль ${idx + 1}</div><h3>${f}</h3><p>Готово к дублированию и быстрой настройке.</p></div>`).join('');
-      const testimonialsHTML = testimonials.map(t => `<div class="testimonial"><div class="quote">“${t.text}”</div><div class="name">${t.name}</div></div>`).join('');
-      const faqsHTML = faqs.map(f => `<details class="faq"><summary>${f.q}</summary><p>${f.a}</p></details>`).join('');
-      const pricingBullets = pricing.bullets.map(b => `<li>${b}</li>`).join('');
+      const accent2 = presets[activePreset]?.accent2 || '#FF9500';
 
       currentHTML = `<!DOCTYPE html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <title>${data.title}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --accent: ${data.color};
-      --bg: #0b0c12;
-      --card: #11131d;
-      --soft: #161a2c;
-      --text: #e9ecff;
-      --muted: #9ca3be;
-      --border: #1f2335;
-      --shadow: 0 24px 60px rgba(0,0,0,0.35);
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Poppins', sans-serif; background: radial-gradient(circle at 20% 20%, #14192c, #0b0c12 55%), #0b0c12; color: var(--text); line-height: 1.6; }
-    .wrapper { max-width: 1100px; margin: 0 auto; padding: 28px 18px 80px; }
-    header { padding: 18px 0 12px; display: flex; align-items: center; justify-content: space-between; }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: 0.4px; }
-    .brand .dot { width: 12px; height: 12px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 20px var(--accent); }
-    .pill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: var(--muted); font-size: 13px; }
-    .hero { padding: 32px 0 18px; }
-    .hero h1 { font-size: clamp(32px, 5vw, 52px); margin-bottom: 16px; background: linear-gradient(135deg, var(--accent), #ffd69e); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero p { color: var(--muted); max-width: 680px; margin-bottom: 18px; }
-    .benefits { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin: 18px 0 22px; }
-    .benefit { display: flex; gap: 10px; align-items: center; padding: 14px; border-radius: 12px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); }
-    .benefit .icon { width: 34px; height: 34px; border-radius: 10px; background: linear-gradient(135deg, var(--accent), #ffb85c); display: grid; place-items: center; color: #0b0c12; font-weight: 700; }
-    .cta-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
-    .btn-main { background: linear-gradient(135deg, var(--accent), #ffb85c); color: #0b0c12; padding: 14px 18px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; box-shadow: 0 18px 44px rgba(0,0,0,0.35); text-decoration: none; }
-    .btn-ghost { background: rgba(255,255,255,0.05); border: 1px solid var(--border); color: var(--text); padding: 14px 18px; border-radius: 12px; text-decoration: none; }
-    .stack { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 20px; box-shadow: var(--shadow); margin: 26px 0; }
-    .stack h2 { font-size: 28px; margin-bottom: 12px; }
-    .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
-    .feature-card { background: var(--soft); border: 1px solid var(--border); border-radius: 14px; padding: 16px; box-shadow: inset 0 1px 0 rgba(255,255,255,0.04); }
-    .feature-card .mini { color: var(--muted); font-size: 12px; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 8px; }
-    .feature-card h3 { margin-bottom: 6px; font-size: 18px; }
-    .feature-card p { color: var(--muted); font-size: 14px; }
-    .demo { margin: 32px 0; background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 18px; box-shadow: var(--shadow); }
-    .demo iframe { width: 100%; border: none; border-radius: 14px; background: #000; }
-    .testimonials { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
-    .testimonial { background: var(--soft); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
-    .testimonial .quote { font-size: 15px; margin-bottom: 10px; }
-    .testimonial .name { color: var(--muted); font-size: 13px; }
-    .pricing { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin: 20px 0; }
-    .price-card { background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); border: 1px solid var(--border); border-radius: 16px; padding: 18px; box-shadow: var(--shadow); }
-    .price-card .title { font-size: 20px; margin-bottom: 6px; }
-    .price-card .value { font-size: 30px; margin-bottom: 10px; color: var(--accent); }
-    .price-card ul { list-style: none; color: var(--muted); margin-bottom: 12px; }
-    .price-card li { margin: 6px 0; }
-    .faq-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px; }
-    .faq { background: var(--soft); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px; color: var(--text); }
-    .faq summary { cursor: pointer; font-weight: 600; }
-    .faq p { color: var(--muted); margin-top: 8px; }
-    .final-cta { margin: 40px 0; text-align: center; background: linear-gradient(135deg, var(--accent), #ffb85c); color: #0b0c12; padding: 28px; border-radius: 18px; box-shadow: var(--shadow); }
-    .final-cta h2 { font-size: 30px; margin-bottom: 8px; }
-    .final-cta p { margin-bottom: 16px; color: #111; }
-    @media (max-width: 720px) { .hero { padding-top: 12px; } .cta-buttons { flex-direction: column; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${title}</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&family=Montserrat:wght@400;700&family=Manrope:wght@400;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--accent:${accent};--accent2:${accent2};--bg:${bgColor};--glass:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.08);--glow:0 20px 40px rgba(228,128,0,0.3);--text-muted:#888;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:${font};background:var(--bg);color:#fff;line-height:1.6;overflow-x:hidden;}
+.container{max-width:1200px;margin:0 auto;padding:0 24px;}
+nav{padding:40px 0;display:flex;justify-content:space-between;align-items:center;}
+.logo{font-weight:800;font-size:28px;letter-spacing:-1px;}
+.logo span{color:var(--accent);}
+.hero{padding:120px 0 100px;text-align:center;}
+.badge{display:inline-block;padding:10px 24px;border-radius:100px;background:var(--glass);border:1px solid var(--border);font-size:13px;text-transform:uppercase;letter-spacing:2px;margin-bottom:36px;color:var(--accent);font-weight:600;}
+h1{font-size:clamp(48px,10vw,90px);line-height:1.1;font-weight:800;margin-bottom:32px;letter-spacing:-2px;background:linear-gradient(to bottom,#fff 40%,rgba(255,255,255,0.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.subtitle{font-size:22px;color:var(--text-muted);max-width:650px;margin:0 auto 60px;}
+.btn{padding:24px 56px;border-radius:100px;background:var(--accent);color:#000;text-decoration:none;font-weight:800;font-size:18px;display:inline-block;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);box-shadow:var(--glow);text-transform:uppercase;letter-spacing:1px;}
+.btn:hover{transform:scale(1.05) translateY(-4px);filter:brightness(1.15) drop-shadow(0 25px 50px rgba(228,128,0,0.4));}
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:32px;margin:100px 0;}
+.b-card{padding:48px 40px;border-radius:28px;background:var(--glass);border:1px solid var(--border);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);text-align:center;}
+.b-card:hover{border-color:var(--accent);background:rgba(255,255,255,0.08);transform:translateY(-12px);box-shadow:0 40px 80px rgba(0,0,0,0.4);}
+.b-dot{width:56px;height:5px;background:var(--accent);margin:0 auto 32px;border-radius:3px;}
+.b-card p{font-size:20px;font-weight:600;}
+.media-wrap{margin:140px 0;padding:32px;border-radius:36px;background:var(--glass);border:1px solid var(--border);position:relative;overflow:hidden;}
+.media-wrap iframe,.media-wrap div{width:100%;border-radius:28px;min-height:520px;position:relative;z-index:1;}
+.testimonials{margin:120px 0;text-align:center;}
+.testimonials h2{font-size:42px;margin-bottom:72px;background:linear-gradient(to right,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.testimonials p{font-style:italic;font-size:20px;color:#ccc;max-width:700px;margin:0 auto 36px;font-weight:400;padding:24px 32px;background:var(--glass);border-radius:20px;border-left:4px solid var(--accent);}
+.form-section{background:linear-gradient(135deg,var(--glass),rgba(228,128,0,0.03));border:1px solid var(--border);border-radius:32px;padding:100px 60px;margin:140px 0 120px;text-align:center;position:relative;overflow:hidden;}
+.form-section h2{font-size:44px;margin-bottom:48px;font-weight:800;background:linear-gradient(to right,#fff 70%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:900px;margin:0 auto 52px;}
+.form-group input,.form-group select{width:100%;padding:24px 28px;border-radius:20px;border:1px solid var(--border);background:rgba(0,0,0,0.4);color:#fff;font-size:18px;transition:all 0.3s;}
+.form-group input:focus,.form-group select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(228,128,0,0.2);outline:none;transform:translateY(-2px);}
+footer{padding:120px 0 80px;text-align:center;border-top:1px solid var(--border);color:#666;}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
+.hero{animation:fadeInUp 1.2s ease-out;}
+.b-card{animation:fadeInUp 1s ease-out;}
+.b-card:nth-child(2){animation-delay:0.2s;}
+.b-card:nth-child(3){animation-delay:0.4s;}
+.media-wrap,.testimonials,.form-section{animation:fadeInUp 1.2s ease-out 0.6s both;}
+@media (max-width:768px){.hero{padding:80px 0 60px;}.form-section{padding:60px 24px;margin:80px 0;}.form-grid{grid-template-columns:1fr;}}
+</style>
 </head>
 <body>
-  <div class="wrapper">
-    <header>
-      <div class="brand"><span class="dot"></span> Демо-конструктор</div>
-      <div class="pill">Готов к дублированию</div>
-    </header>
-
-    <section class="hero">
-      <div class="pill">AI + Конверсия</div>
-      <h1>${data.title}</h1>
-      <p>${data.subtitle}</p>
-      <div class="benefits">${benefitHTML}</div>
-      <div class="cta-buttons">
-        <a href="#demo" class="btn-main">${data.ctaButton}</a>
-        <a href="#pricing" class="btn-ghost">Посмотреть тариф</a>
-      </div>
-    </section>
-
-    <section class="stack">
-      <h2>Модульная структура</h2>
-      <p style="color: var(--muted); margin-bottom: 12px;">Каждый блок легко дублировать, заменяя данные под новый оффер.</p>
-      <div class="feature-grid">${featuresHTML}</div>
-    </section>
-
-    <section id="demo" class="demo">
-      <div style="display:flex; align-items:center; justify-content: space-between; margin-bottom: 12px; gap: 12px;">
-        <h2 style="margin:0;">${data.demoTitle}</h2>
-        <span class="pill">Live Avatar</span>
-      </div>
-      <div>${data.iframeCode}</div>
-    </section>
-
-    <section class="stack">
-      <h2>Социальное доказательство</h2>
-      <div class="testimonials">${testimonialsHTML}</div>
-    </section>
-
-    <section id="pricing" class="pricing">
-      <div class="price-card">
-        <div class="title">${pricing.title}</div>
-        <div class="value">${pricing.price}</div>
-        <ul>${pricingBullets}</ul>
-        <a class="btn-main" href="#demo">${data.ctaButton}</a>
-      </div>
-    </section>
-
-    <section class="stack">
-      <h2>FAQ</h2>
-      <div class="faq-grid">${faqsHTML}</div>
-    </section>
-
-    <section class="final-cta">
-      <h2>${data.ctaTitle}</h2>
-      <p>${data.ctaText}</p>
-      <a class="btn-main" href="#demo" style="box-shadow:none;">${data.ctaButton}</a>
-    </section>
-  </div>
+<div class="container">
+<nav><div class="logo">NEXT<span>GEN</span></div><div class="badge">Premium 2025</div></nav>
+<section class="hero"><div class="badge">Digital Excellence</div><h1>${title}</h1><p class="subtitle">${subtitle}</p><a href="https://wa.me/4${whatsapp}?text=Хочу ${cta.toLowerCase()}" class="btn">${cta}</a></section>
+<section class="benefits-grid">${benefitsHTML}</section>
+<section class="media-wrap">${iframeCode}</section>
+<section class="testimonials"><h2>Что говорят клиенты</h2>${testimonialsHTML}</section>
+<section class="form-section"><h2>${formTitle}</h2><div class="form-grid"><div class="form-group"><input type="text" placeholder="Ваше имя *" required></div><div class="form-group"><input type="tel" placeholder="Телефон / WhatsApp *" required></div><div class="form-group"><select required><option value="">Выберите услугу</option><option>AI Аватар</option><option>Лендинг</option><option>SaaS</option></select></div></div><a href="https://wa.me/4${whatsapp}?text=Заявка: ${formTitle}" class="btn">${formCta} WhatsApp</a><p style="margin-top:24px;font-size:14px;color:#999;">Ответ в течение 15 минут</p></section>
+<footer><p>&copy; 2025 NEXTGEN. Создано в Premium Generator</p></footer>
+</div>
 </body>
 </html>`;
 
-      const previewFrame = document.getElementById('previewFrame');
-      const previewDoc = previewFrame.contentDocument || previewFrame.contentWindow.document;
-      previewDoc.open();
-      previewDoc.write(currentHTML);
-      previewDoc.close();
+      const frame = document.getElementById('previewFrame');
+      const doc = frame.contentDocument || frame.contentWindow.document;
+      doc.open();
+      doc.write(currentHTML);
+      doc.close();
 
       document.getElementById('codeBlock').textContent = currentHTML;
-      updateSwatches(accent, adjust('#0f1015', 0), adjust('#0f1015', 20));
-    }
+      document.getElementById('status').textContent = '✅ Готово! ' + new Date().toLocaleTimeString();
 
-    function showTab(e, tab) {
-      document.querySelectorAll('.tab-content').forEach(el => el.style.display = 'none');
-      document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(tab).style.display = 'block';
-      e.target.classList.add('active');
+    } catch (error) {
+      document.getElementById('status').textContent = '❌ Ошибка: ' + error.message;
+      console.error('Generator error:', error);
     }
+  }
 
-    function copyCode() {
-      navigator.clipboard.writeText(currentHTML).then(() => {
-        const msg = document.getElementById('successMsg');
-        msg.textContent = 'Код скопирован в буфер обмена';
-        setTimeout(() => msg.textContent = '', 2000);
-      });
-    }
+  function copyCode() {
+    navigator.clipboard.writeText(currentHTML).then(() => {
+      alert('✅ Код скопирован!');
+    });
+  }
 
-    function downloadHTML() {
-      const blob = new Blob([currentHTML], { type: 'text/html' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = `landing-${Date.now()}.html`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(url);
-    }
+  function downloadHTML() {
+    const blob = new Blob([currentHTML], { type: 'text/html' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `premium-landing-${Date.now()}.html`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }
 
-    window.onload = () => { generateLanding(); randomizeStyle(); };
-  </script>
+  // Инициализация
+  window.onload = function() {
+    generateLanding();
+  };
+</script>
+
 </body>
 </html>
