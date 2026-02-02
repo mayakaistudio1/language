@@ -1,386 +1,671 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>🚀 Premium Landing Generator v3.2</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&family=Montserrat:wght@400;700&family=Manrope:wght@400;800&family=Poppins:wght@400;600;700&family=Roboto+Mono&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AI-Powered Digital Hub Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
   <style>
     :root {
-      --accent: #E48000;
-      --bg: #08090d;
-      --card: rgba(255, 255, 255, 0.03);
-      --border: rgba(255, 255, 255, 0.08);
-      --text: #f2f4ff;
-      --text-muted: #8a8fa6;
+      --bg: #0b0d12;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-strong: rgba(255, 255, 255, 0.12);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #f4f6ff;
+      --muted: #b6bfd3;
+      --accent: #8fd3ff;
+      --accent-strong: #4fb4ff;
+      --shadow: 0 24px 60px rgba(6, 8, 14, 0.55);
+      --radius: 22px;
     }
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "Inter", sans-serif;
+    }
+
     body {
-      font-family: 'Inter', sans-serif;
-      background: var(--bg);
-      background-image:
-        radial-gradient(circle at 10% 20%, rgba(228, 128, 0, 0.05) 0%, transparent 40%),
-        radial-gradient(circle at 90% 80%, rgba(228, 128, 0, 0.05) 0%, transparent 40%);
-      color: var(--text);
       min-height: 100vh;
-      padding: 40px 20px;
+      background: radial-gradient(circle at top, rgba(143, 211, 255, 0.12), transparent 48%),
+        radial-gradient(circle at 10% 90%, rgba(79, 180, 255, 0.12), transparent 42%),
+        var(--bg);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .app {
+      width: min(420px, 100%);
+      background: rgba(7, 10, 16, 0.78);
+      border: 1px solid var(--border);
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 88vh;
+    }
+
+    header {
+      padding: 20px 22px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8, 12, 20, 0.9);
+    }
+
+    .title {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.24em;
+      color: var(--muted);
+    }
+
+    .progress {
+      display: flex;
+      gap: 6px;
+    }
+
+    .progress span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .progress span.active {
+      width: 18px;
+      border-radius: 20px;
+      background: var(--accent);
+    }
+
+    main {
+      position: relative;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      padding: 26px 22px 30px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .screen.active {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateX(0);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: rgba(79, 180, 255, 0.15);
+      padding: 8px 12px;
+      border-radius: 999px;
+      width: fit-content;
+    }
+
+    h1 {
+      font-size: 28px;
+      line-height: 1.15;
+    }
+
+    h2 {
+      font-size: 22px;
+      line-height: 1.25;
+    }
+
+    p {
+      color: var(--muted);
+      font-size: 15px;
       line-height: 1.6;
     }
 
-    .container {
-      max-width: 1600px;
-      margin: 0 auto;
+    .cards {
       display: grid;
-      grid-template-columns: 480px 1fr;
-      gap: 32px;
+      gap: 12px;
     }
 
-    .panel {
-      background: rgba(15, 17, 26, 0.7);
+    .card {
+      background: var(--card);
       border: 1px solid var(--border);
-      border-radius: 24px;
-      padding: 30px;
-      backdrop-filter: blur(20px);
-      box-shadow: 0 40px 100px rgba(0,0,0,0.5);
-      height: fit-content;
-      position: sticky;
-      top: 40px;
-      overflow-y: auto;
-      max-height: 90vh;
+      padding: 16px;
+      border-radius: var(--radius);
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      position: relative;
+      overflow: hidden;
     }
 
-    h1 { font-size: 24px; margin-bottom: 8px; letter-spacing: -0.5px; }
-    .lead { color: var(--text-muted); margin-bottom: 24px; font-size: 14px; }
-
-    .form-group { margin-bottom: 20px; }
-    label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); }
-    input, textarea, select {
-      width: 100%; padding: 14px; border-radius: 12px; border: 1px solid var(--border);
-      background: rgba(0, 0, 0, 0.2); color: #fff; font-size: 14px;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    input:focus, select:focus, textarea:focus {
-      border-color: var(--accent); outline: none;
-      box-shadow: 0 0 0 4px rgba(228,128,0,0.1);
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(143, 211, 255, 0.2), transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s ease;
     }
 
-    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 12px;
+      background: rgba(143, 211, 255, 0.2);
+      display: grid;
+      place-items: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .flow {
+      display: grid;
+      gap: 10px;
+    }
+
+    .flow-step {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      background: var(--card);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+    }
+
+    .step-number {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--accent-strong);
+      color: #0a111a;
+      display: grid;
+      place-items: center;
+      font-weight: 700;
+      font-size: 13px;
+    }
+
+    .chat {
+      background: rgba(10, 14, 22, 0.7);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 220px;
+    }
+
+    .bubble {
+      max-width: 85%;
+      padding: 12px 14px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .bubble.agent {
+      background: rgba(143, 211, 255, 0.15);
+      align-self: flex-start;
+    }
+
+    .bubble.user {
+      background: rgba(255, 255, 255, 0.1);
+      align-self: flex-end;
+    }
+
+    .quick-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .quick-actions button {
+      padding: 8px 12px;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 999px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .quick-actions button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .video-placeholder {
+      background: linear-gradient(140deg, rgba(79, 180, 255, 0.18), rgba(8, 12, 20, 0.6));
+      border: 1px dashed rgba(143, 211, 255, 0.4);
+      border-radius: var(--radius);
+      min-height: 200px;
+      display: grid;
+      place-items: center;
+      color: var(--muted);
+      text-align: center;
+      padding: 16px;
+      font-size: 14px;
+    }
+
+    .cta {
+      margin-top: auto;
+      display: flex;
+      gap: 12px;
+    }
 
     .btn {
-      padding: 16px; border-radius: 14px; border: none; background: var(--accent);
-      color: #000; font-weight: 800; cursor: pointer; width: 100%;
-      transition: 0.3s; text-transform: uppercase; letter-spacing: 1px;
-    }
-    .btn:hover { transform: translateY(-2px); filter: brightness(1.1); box-shadow: 0 10px 30px rgba(228,128,0,0.3); }
-    .btn-secondary { background: #1a1d2e; color: #fff; }
-
-    .color-preset { display: flex; gap: 8px; flex-wrap: wrap; }
-    .preset-btn {
-      width: 48px; height: 48px; border-radius: 12px; border: none; cursor: pointer;
-      position: relative; overflow: hidden;
-    }
-    .preset-btn.active::after {
-      content: '✓'; position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%); color: #000; font-weight: bold; font-size: 16px;
+      flex: 1;
+      padding: 14px 18px;
+      border-radius: 16px;
+      border: none;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
-    .tabs { display: flex; gap: 8px; margin-bottom: 16px; }
-    .tab-btn {
-      background: transparent; border: 1px solid var(--border); color: var(--text-muted);
-      padding: 10px 20px; border-radius: 10px; cursor: pointer; font-weight: 600;
-    }
-    .tab-btn.active { background: var(--border); color: #fff; }
-
-    .preview-container {
-      background: #000; border-radius: 24px; border: 1px solid var(--border);
-      overflow: hidden; box-shadow: 0 50px 120px rgba(0,0,0,0.6); height: 90vh;
-      position: relative;
-    }
-    iframe { width: 100%; height: 100%; border: none; }
-    .code-block {
-      padding: 20px; font-family: 'Roboto Mono', monospace; font-size: 12px;
-      color: #b0b5cc; white-space: pre-wrap; height: 100%; overflow: auto;
-      background: #050608;
+    .btn.primary {
+      background: var(--accent);
+      color: #0a111a;
+      box-shadow: 0 12px 24px rgba(79, 180, 255, 0.3);
     }
 
-    .status {
-      position: absolute; bottom: 10px; right: 10px;
-      background: rgba(0,0,0,0.7); color: #0f0; padding: 8px 12px;
-      border-radius: 20px; font-size: 12px; font-family: 'Roboto Mono', monospace;
+    .btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
     }
 
-    @media (max-width: 1100px) {
-      .container { grid-template-columns: 1fr; }
-      .panel { position: static; max-height: none; }
+    .btn:active {
+      transform: translateY(1px);
+    }
+
+    .cta .btn.primary:hover {
+      transform: translateY(-2px);
+    }
+
+    .footer-note {
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .use-cases {
+      display: grid;
+      gap: 10px;
+    }
+
+    .use-case {
+      padding: 12px 16px;
+      border-radius: 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+
+    .price-tag {
+      font-size: 28px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .pilot-list {
+      display: grid;
+      gap: 8px;
+    }
+
+    .pilot-item {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .pilot-item span {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: rgba(79, 180, 255, 0.2);
+      display: grid;
+      place-items: center;
+      font-size: 12px;
+      color: var(--accent);
+    }
+
+    @media (min-width: 720px) {
+      body {
+        padding: 40px;
+      }
+
+      .app {
+        width: min(720px, 100%);
+        min-height: 80vh;
+      }
+
+      main {
+        min-height: 520px;
+      }
+
+      h1 {
+        font-size: 36px;
+      }
+
+      h2 {
+        font-size: 26px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="app">
+    <header>
+      <div class="title">Digital Hub</div>
+      <div class="progress" id="progress"></div>
+    </header>
+    <main>
+      <section class="screen active" data-screen="0">
+        <span class="pill">Welcome</span>
+        <h1>AI-powered Digital Hub for Leaders &amp; Organizations</h1>
+        <p>Your digital presence that explains, qualifies, and guides — automatically.</p>
+        <div class="cta">
+          <button class="btn primary" data-next>See how it works</button>
+        </div>
+      </section>
 
-<div class="container">
-  <div class="panel">
-    <h1>✨ Premium Generator v3.2</h1>
-    <p class="lead">✅ ИСПРАВЛЕН черный экран + улучшенный эдитор</p>
+      <section class="screen" data-screen="1">
+        <span class="pill">You might relate</span>
+        <h2>The same explanations, every day.</h2>
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">💬</div>
+            <div>
+              <strong>Leaders repeat the same explanations every day</strong>
+              <p>Important moments get rushed.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">⏳</div>
+            <div>
+              <strong>First contacts consume time and energy</strong>
+              <p>High-value work gets delayed.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">🧩</div>
+            <div>
+              <strong>Teams are limited by human availability</strong>
+              <p>Access depends on who is online.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">📈</div>
+            <div>
+              <strong>Scaling requires people — not systems</strong>
+              <p>Growth should feel lighter, not heavier.</p>
+            </div>
+          </div>
+        </div>
+        <div class="cta">
+          <button class="btn secondary" data-prev>Back</button>
+          <button class="btn primary" data-next>Show me a better way</button>
+        </div>
+      </section>
 
-    <!-- Цветовая схема -->
-    <div class="form-group">
-      <label>Цветовая схема</label>
-      <div class="color-preset">
-        <button class="preset-btn active" style="background:#E48000" onclick="selectPreset('orange')"></button>
-        <button class="preset-btn" style="background:#FF6B35" onclick="selectPreset('coral')"></button>
-        <button class="preset-btn" style="background:#00D4AA" onclick="selectPreset('teal')"></button>
-        <button class="preset-btn" style="background:#A855F7" onclick="selectPreset('purple')"></button>
-        <button class="preset-btn" style="background:#3B82F6" onclick="selectPreset('blue')"></button>
-      </div>
-      <div class="grid-2" style="margin-top: 12px;">
-        <input type="color" id="accent" value="#E48000" onchange="generateLanding()">
-        <input type="color" id="bgColor" value="#08090d" onchange="generateLanding()">
-      </div>
-    </div>
+      <section class="screen" data-screen="2">
+        <span class="pill">A better way</span>
+        <h2>This is not a website. Not a chatbot.</h2>
+        <p>
+          It’s a personal AI-powered digital hub where AI represents you and your projects.
+        </p>
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">✨</div>
+            <div>
+              <strong>Explain your idea</strong>
+              <p>Clearly, every time.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">✅</div>
+            <div>
+              <strong>Answer questions</strong>
+              <p>Fast, friendly, on-brand.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">➡️</div>
+            <div>
+              <strong>Guide people</strong>
+              <p>To the right next step.</p>
+            </div>
+          </div>
+        </div>
+        <div class="cta">
+          <button class="btn secondary" data-prev>Back</button>
+          <button class="btn primary" data-next>How does it work?</button>
+        </div>
+      </section>
 
-    <!-- Контент -->
-    <div class="form-group">
-      <label>Шрифт</label>
-      <select id="fontPair" onchange="generateLanding()">
-        <option value="'Inter', sans-serif">Inter (Modern)</option>
-        <option value="'Playfair Display', serif">Playfair (Luxury)</option>
-        <option value="'Manrope', sans-serif">Manrope (Tech)</option>
-        <option value="'Montserrat', sans-serif" selected>Montserrat</option>
-        <option value="'Poppins', sans-serif">Poppins</option>
-      </select>
-    </div>
+      <section class="screen" data-screen="3">
+        <span class="pill">The flow</span>
+        <h2>A calm, simple path.</h2>
+        <div class="flow">
+          <div class="flow-step">
+            <div class="step-number">1</div>
+            <div>Person enters your hub</div>
+          </div>
+          <div class="flow-step">
+            <div class="step-number">2</div>
+            <div>AI starts the conversation</div>
+          </div>
+          <div class="flow-step">
+            <div class="step-number">3</div>
+            <div>AI understands intent</div>
+          </div>
+          <div class="flow-step">
+            <div class="step-number">4</div>
+            <div>AI routes to action</div>
+          </div>
+        </div>
+        <p>You stay focused on decisions, not explanations.</p>
+        <div class="cta">
+          <button class="btn secondary" data-prev>Back</button>
+          <button class="btn primary" data-next>See it in action</button>
+        </div>
+      </section>
 
-    <div class="grid-2">
-      <div class="form-group">
-        <label>Hero Заголовок</label>
-        <input type="text" id="title" value="Будущее вашего бренда начинается здесь">
-      </div>
-      <div class="form-group">
-        <label>Hero CTA</label>
-        <input type="text" id="ctaButton" value="Начать проект">
-      </div>
-    </div>
+      <section class="screen" data-screen="4">
+        <span class="pill">Demo mode</span>
+        <h2>Here’s how it feels.</h2>
+        <div class="chat" id="chat">
+          <div class="bubble agent">
+            Hi! I can explain the project, answer questions, or guide you to the next step. What would you like to explore?
+          </div>
+        </div>
+        <div class="quick-actions">
+          <button data-quick="Explain the project">Explain the project</button>
+          <button data-quick="Who is this for?">Who is this for?</button>
+          <button data-quick="How can this be used?">How can this be used?</button>
+        </div>
+        <div class="cta">
+          <button class="btn secondary" data-prev>Back</button>
+          <button class="btn primary" data-next>Continue</button>
+        </div>
+      </section>
 
-    <div class="form-group">
-      <label>Подзаголовок</label>
-      <textarea id="subtitle" rows="2">Мы создаем цифровые решения, которые выделяются на фоне конкурентов.</textarea>
-    </div>
+      <section class="screen" data-screen="5">
+        <span class="pill">Live voice</span>
+        <h2>When needed, AI can speak — not just write.</h2>
+        <div class="video-placeholder">
+          Placeholder video block<br />
+          (Live avatar demo)
+        </div>
+        <p>Use it for key moments when a voice makes things personal.</p>
+        <div class="cta">
+          <button class="btn secondary" data-prev>Back</button>
+          <button class="btn primary" data-next>Continue</button>
+        </div>
+      </section>
 
-    <div class="form-group">
-      <label>Преимущества (по строке)</label>
-      <textarea id="benefits" rows="3">Мгновенная загрузка
-Премиальный дизайн
-Полная поддержка</textarea>
-    </div>
+      <section class="screen" data-screen="6">
+        <span class="pill">Use cases</span>
+        <h2>Where it fits right away.</h2>
+        <div class="use-cases">
+          <div class="use-case">Sales &amp; Partner Onboarding</div>
+          <div class="use-case">Project Presentation</div>
+          <div class="use-case">Team &amp; Community Entry</div>
+          <div class="use-case">Investor / Client First Contact</div>
+        </div>
+        <p>You choose the tone. The hub keeps it consistent.</p>
+        <div class="cta">
+          <button class="btn secondary" data-prev>Back</button>
+          <button class="btn primary" data-next>Show the pilot</button>
+        </div>
+      </section>
 
-    <div class="form-group">
-      <label>Отзывы (по строке)</label>
-      <textarea id="testimonials" rows="2">"Лучший сервис!" - Иван П.
-"Премиум качество" - Мария К.</textarea>
-    </div>
+      <section class="screen" data-screen="7">
+        <span class="pill">Pilot offer</span>
+        <h2>Launch a focused pilot in days.</h2>
+        <div class="price-tag">$2,500 Pilot</div>
+        <div class="pilot-list">
+          <div class="pilot-item"><span>✓</span>One clear use case</div>
+          <div class="pilot-item"><span>✓</span>Branded hub with guided flow</div>
+          <div class="pilot-item"><span>✓</span>Live demo ready for your audience</div>
+          <div class="pilot-item"><span>✓</span>Next-step routing to your team</div>
+        </div>
+        <p>Simple, fast, and built for decision-makers.</p>
+        <div class="cta">
+          <button class="btn secondary" data-prev>Back</button>
+          <button class="btn primary" data-next>Reserve the pilot</button>
+        </div>
+      </section>
 
-    <div class="form-group">
-      <label>HeyGen iframe</label>
-      <textarea id="iframeCode" rows="2" placeholder="Полный &lt;iframe&gt; код"></textarea>
-    </div>
-
-    <div class="grid-2">
-      <div class="form-group">
-        <label>Форма - Заголовок</label>
-        <input type="text" id="formTitle" value="Оставьте заявку">
-      </div>
-      <div class="form-group">
-        <label>Форма - CTA</label>
-        <input type="text" id="formCta" value="Получить консультацию">
-      </div>
-    </div>
-
-    <div class="form-group">
-      <label>WhatsApp (+код страны)</label>
-      <input type="text" id="whatsapp" value="1234567890" placeholder="79123456789">
-    </div>
-
-    <button class="btn" onclick="generateLanding()">🔥 ГЕНЕРИРОВАТЬ</button>
-
-    <div style="margin-top: 20px;" class="grid-2">
-      <button class="btn btn-secondary" onclick="copyCode()">📋 Копировать</button>
-      <button class="btn btn-secondary" onclick="downloadHTML()">💾 Скачать</button>
-    </div>
+      <section class="screen" data-screen="8">
+        <span class="pill">Let’s start</span>
+        <h2>Ready to make your hub real?</h2>
+        <p>Pick the easiest next step. We’ll handle the rest.</p>
+        <div class="cards">
+          <div class="card">
+            <div class="card-icon">📅</div>
+            <div>
+              <strong>Book a 20-minute call</strong>
+              <p>Align on the pilot scope.</p>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-icon">💬</div>
+            <div>
+              <strong>Message us directly</strong>
+              <p>We can start today.</p>
+            </div>
+          </div>
+        </div>
+        <div class="cta">
+          <button class="btn secondary" data-prev>Back</button>
+          <button class="btn primary" id="finalCta">Start the $2,500 Pilot</button>
+        </div>
+        <p class="footer-note">You’re in control. We keep it calm and clear.</p>
+      </section>
+    </main>
   </div>
 
-  <div class="right-col">
-    <div class="tabs">
-      <button class="tab-btn active" onclick="switchTab('preview')">👁️ Превью</button>
-      <button class="tab-btn" onclick="switchTab('code')">💻 Код</button>
-    </div>
+  <script>
+    const screens = Array.from(document.querySelectorAll(".screen"));
+    const progress = document.getElementById("progress");
+    const quickButtons = document.querySelectorAll("[data-quick]");
+    const chat = document.getElementById("chat");
 
-    <div class="preview-container">
-      <div id="previewWrap">
-        <iframe id="previewFrame"></iframe>
-        <div class="status" id="status">Готов к генерации...</div>
-      </div>
-      <div id="codeWrap" style="display:none">
-        <div id="codeBlock" class="code-block"></div>
-      </div>
-    </div>
-  </div>
-</div>
+    const responses = {
+      "Explain the project":
+        "It’s your personal hub that explains your offer, answers questions, and guides people to a clear next step.",
+      "Who is this for?":
+        "Leaders, founders, and teams who want a calm, consistent first touchpoint without repeating themselves.",
+      "How can this be used?":
+        "Use it to present a project, onboard partners, or qualify leads before your team steps in."
+    };
 
-<script>
-  let currentHTML = '';
-  let activePreset = 'orange';
-
-  const presets = {
-    orange: { accent: '#E48000', accent2: '#FF9500', bg: '#08090d' },
-    coral: { accent: '#FF6B35', accent2: '#FF8E53', bg: '#0f0f23' },
-    teal: { accent: '#00D4AA', accent2: '#14F2D0', bg: '#0a1a18' },
-    purple: { accent: '#A855F7', accent2: '#C084FC', bg: '#120a1a' },
-    blue: { accent: '#3B82F6', accent2: '#60A5FA', bg: '#0a182a' }
-  };
-
-  function selectPreset(name) {
-    activePreset = name;
-    const colors = presets[name];
-    document.getElementById('accent').value = colors.accent;
-    document.getElementById('bgColor').value = colors.bg;
-    document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    generateLanding();
-  }
-
-  function switchTab(tab) {
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    event.target.classList.add('active');
-    document.getElementById('previewWrap').style.display = tab === 'preview' ? 'block' : 'none';
-    document.getElementById('codeWrap').style.display = tab === 'code' ? 'block' : 'none';
-  }
-
-  function generateLanding() {
-    try {
-      document.getElementById('status').textContent = 'Генерирую...';
-
-      const accent = document.getElementById('accent').value;
-      const bgColor = document.getElementById('bgColor').value;
-      const font = document.getElementById('fontPair').value;
-      const title = document.getElementById('title').value || 'Заголовок';
-      const subtitle = document.getElementById('subtitle').value || 'Подзаголовок';
-      const cta = document.getElementById('ctaButton').value || 'CTA';
-      const iframeCode = document.getElementById('iframeCode').value ||
-        '<div style="background:linear-gradient(135deg,#111,#1a1d2e);height:520px;border-radius:28px;display:grid;place-items:center;font-size:24px;color:#aaa;">🚀 Место для HeyGen</div>';
-      const benefits = document.getElementById('benefits').value.split('\n').filter(b => b.trim());
-      const testimonials = document.getElementById('testimonials').value.split('\n').filter(t => t.trim());
-      const formTitle = document.getElementById('formTitle').value || 'Заявка';
-      const formCta = document.getElementById('formCta').value || 'Отправить';
-      const whatsapp = document.getElementById('whatsapp').value || '1234567890';
-
-      const benefitsHTML = benefits.map(b =>
-        `<div class="b-card"><div class="b-dot"></div><p>${b}</p></div>`
-      ).join('');
-
-      const testimonialsHTML = testimonials.map(t =>
-        `<p>"${t}"</p>`
-      ).join('');
-
-      const accent2 = presets[activePreset]?.accent2 || '#FF9500';
-
-      currentHTML = `<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${title}</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Playfair+Display:wght@700&family=Montserrat:wght@400;700&family=Manrope:wght@400;800&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-<style>
-:root{--accent:${accent};--accent2:${accent2};--bg:${bgColor};--glass:rgba(255,255,255,0.03);--border:rgba(255,255,255,0.08);--glow:0 20px 40px rgba(228,128,0,0.3);--text-muted:#888;}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:${font};background:var(--bg);color:#fff;line-height:1.6;overflow-x:hidden;}
-.container{max-width:1200px;margin:0 auto;padding:0 24px;}
-nav{padding:40px 0;display:flex;justify-content:space-between;align-items:center;}
-.logo{font-weight:800;font-size:28px;letter-spacing:-1px;}
-.logo span{color:var(--accent);}
-.hero{padding:120px 0 100px;text-align:center;}
-.badge{display:inline-block;padding:10px 24px;border-radius:100px;background:var(--glass);border:1px solid var(--border);font-size:13px;text-transform:uppercase;letter-spacing:2px;margin-bottom:36px;color:var(--accent);font-weight:600;}
-h1{font-size:clamp(48px,10vw,90px);line-height:1.1;font-weight:800;margin-bottom:32px;letter-spacing:-2px;background:linear-gradient(to bottom,#fff 40%,rgba(255,255,255,0.6));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-.subtitle{font-size:22px;color:var(--text-muted);max-width:650px;margin:0 auto 60px;}
-.btn{padding:24px 56px;border-radius:100px;background:var(--accent);color:#000;text-decoration:none;font-weight:800;font-size:18px;display:inline-block;transition:all 0.4s cubic-bezier(0.4,0,0.2,1);box-shadow:var(--glow);text-transform:uppercase;letter-spacing:1px;}
-.btn:hover{transform:scale(1.05) translateY(-4px);filter:brightness(1.15) drop-shadow(0 25px 50px rgba(228,128,0,0.4));}
-.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:32px;margin:100px 0;}
-.b-card{padding:48px 40px;border-radius:28px;background:var(--glass);border:1px solid var(--border);transition:all 0.4s cubic-bezier(0.4,0,0.2,1);text-align:center;}
-.b-card:hover{border-color:var(--accent);background:rgba(255,255,255,0.08);transform:translateY(-12px);box-shadow:0 40px 80px rgba(0,0,0,0.4);}
-.b-dot{width:56px;height:5px;background:var(--accent);margin:0 auto 32px;border-radius:3px;}
-.b-card p{font-size:20px;font-weight:600;}
-.media-wrap{margin:140px 0;padding:32px;border-radius:36px;background:var(--glass);border:1px solid var(--border);position:relative;overflow:hidden;}
-.media-wrap iframe,.media-wrap div{width:100%;border-radius:28px;min-height:520px;position:relative;z-index:1;}
-.testimonials{margin:120px 0;text-align:center;}
-.testimonials h2{font-size:42px;margin-bottom:72px;background:linear-gradient(to right,#fff,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.testimonials p{font-style:italic;font-size:20px;color:#ccc;max-width:700px;margin:0 auto 36px;font-weight:400;padding:24px 32px;background:var(--glass);border-radius:20px;border-left:4px solid var(--accent);}
-.form-section{background:linear-gradient(135deg,var(--glass),rgba(228,128,0,0.03));border:1px solid var(--border);border-radius:32px;padding:100px 60px;margin:140px 0 120px;text-align:center;position:relative;overflow:hidden;}
-.form-section h2{font-size:44px;margin-bottom:48px;font-weight:800;background:linear-gradient(to right,#fff 70%,var(--accent));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;max-width:900px;margin:0 auto 52px;}
-.form-group input,.form-group select{width:100%;padding:24px 28px;border-radius:20px;border:1px solid var(--border);background:rgba(0,0,0,0.4);color:#fff;font-size:18px;transition:all 0.3s;}
-.form-group input:focus,.form-group select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(228,128,0,0.2);outline:none;transform:translateY(-2px);}
-footer{padding:120px 0 80px;text-align:center;border-top:1px solid var(--border);color:#666;}
-@keyframes fadeInUp{from{opacity:0;transform:translateY(50px);}to{opacity:1;transform:translateY(0);}}
-.hero{animation:fadeInUp 1.2s ease-out;}
-.b-card{animation:fadeInUp 1s ease-out;}
-.b-card:nth-child(2){animation-delay:0.2s;}
-.b-card:nth-child(3){animation-delay:0.4s;}
-.media-wrap,.testimonials,.form-section{animation:fadeInUp 1.2s ease-out 0.6s both;}
-@media (max-width:768px){.hero{padding:80px 0 60px;}.form-section{padding:60px 24px;margin:80px 0;}.form-grid{grid-template-columns:1fr;}}
-</style>
-</head>
-<body>
-<div class="container">
-<nav><div class="logo">NEXT<span>GEN</span></div><div class="badge">Premium 2025</div></nav>
-<section class="hero"><div class="badge">Digital Excellence</div><h1>${title}</h1><p class="subtitle">${subtitle}</p><a href="https://wa.me/4${whatsapp}?text=Хочу ${cta.toLowerCase()}" class="btn">${cta}</a></section>
-<section class="benefits-grid">${benefitsHTML}</section>
-<section class="media-wrap">${iframeCode}</section>
-<section class="testimonials"><h2>Что говорят клиенты</h2>${testimonialsHTML}</section>
-<section class="form-section"><h2>${formTitle}</h2><div class="form-grid"><div class="form-group"><input type="text" placeholder="Ваше имя *" required></div><div class="form-group"><input type="tel" placeholder="Телефон / WhatsApp *" required></div><div class="form-group"><select required><option value="">Выберите услугу</option><option>AI Аватар</option><option>Лендинг</option><option>SaaS</option></select></div></div><a href="https://wa.me/4${whatsapp}?text=Заявка: ${formTitle}" class="btn">${formCta} WhatsApp</a><p style="margin-top:24px;font-size:14px;color:#999;">Ответ в течение 15 минут</p></section>
-<footer><p>&copy; 2025 NEXTGEN. Создано в Premium Generator</p></footer>
-</div>
-</body>
-</html>`;
-
-      const frame = document.getElementById('previewFrame');
-      const doc = frame.contentDocument || frame.contentWindow.document;
-      doc.open();
-      doc.write(currentHTML);
-      doc.close();
-
-      document.getElementById('codeBlock').textContent = currentHTML;
-      document.getElementById('status').textContent = '✅ Готово! ' + new Date().toLocaleTimeString();
-
-    } catch (error) {
-      document.getElementById('status').textContent = '❌ Ошибка: ' + error.message;
-      console.error('Generator error:', error);
+    function renderProgress(activeIndex) {
+      progress.innerHTML = "";
+      screens.forEach((_, index) => {
+        const dot = document.createElement("span");
+        if (index === activeIndex) dot.classList.add("active");
+        progress.appendChild(dot);
+      });
     }
-  }
 
-  function copyCode() {
-    navigator.clipboard.writeText(currentHTML).then(() => {
-      alert('✅ Код скопирован!');
+    function showScreen(index) {
+      screens.forEach((screen, idx) => {
+        screen.classList.toggle("active", idx === index);
+      });
+      renderProgress(index);
+    }
+
+    document.addEventListener("click", (event) => {
+      const target = event.target;
+      if (target.matches("[data-next]")) {
+        const current = screens.findIndex((screen) => screen.classList.contains("active"));
+        const next = Math.min(current + 1, screens.length - 1);
+        showScreen(next);
+      }
+
+      if (target.matches("[data-prev]")) {
+        const current = screens.findIndex((screen) => screen.classList.contains("active"));
+        const prev = Math.max(current - 1, 0);
+        showScreen(prev);
+      }
     });
-  }
 
-  function downloadHTML() {
-    const blob = new Blob([currentHTML], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `premium-landing-${Date.now()}.html`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-  }
+    quickButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const text = button.dataset.quick;
+        const userBubble = document.createElement("div");
+        userBubble.className = "bubble user";
+        userBubble.textContent = text;
+        chat.appendChild(userBubble);
 
-  // Инициализация
-  window.onload = function() {
-    generateLanding();
-  };
-</script>
+        const agentBubble = document.createElement("div");
+        agentBubble.className = "bubble agent";
+        agentBubble.textContent = responses[text];
+        chat.appendChild(agentBubble);
 
+        chat.scrollTop = chat.scrollHeight;
+      });
+    });
+
+    document.getElementById("finalCta").addEventListener("click", () => {
+      alert("Great choice. We’ll set up your $2,500 pilot next.");
+    });
+
+    renderProgress(0);
+  </script>
 </body>
 </html>
